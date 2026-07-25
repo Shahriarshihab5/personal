@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Bou Jaan 💌</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Poppins:wght@400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF1E2;
+    --rose:#8C1F3E;
+    --rose-dark:#5A0F26;
+    --blush:#F1DBA9;
+    --gold:#B9852E;
+    --plum:#3A1220;
+    --card-shadow: 0 25px 60px -15px rgba(90,15,38,0.4);
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0; padding:0; height:100%;
+    font-family:'Poppins', sans-serif;
+    background: radial-gradient(circle at 20% 15%, #F7E5C8 0%, var(--cream) 45%, #F3E2C4 100%);
+    color:var(--plum);
+    overflow-x:hidden;
+  }
+
+  /* floating petals background */
+  .petals{ position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+  .petal{
+    position:absolute; top:-40px; font-size:20px; opacity:.7;
+    color:var(--gold);
+    animation: fall linear infinite;
+  }
+  @keyframes fall{
+    to{ transform: translateY(110vh) rotate(360deg); }
+  }
+
+  .stage{
+    position:relative; z-index:1;
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    padding:24px;
+  }
+
+  .card{
+    width:100%; max-width:420px;
+    background: #FFFDF8ee;
+    backdrop-filter: blur(6px);
+    border-radius:18px;
+    padding:40px 32px 34px;
+    box-shadow: var(--card-shadow), inset 0 0 0 1px var(--gold), inset 0 0 0 6px #fffdf8;
+    border: 1.5px solid var(--gold);
+    text-align:center;
+    position:relative;
+    animation: cardIn .5s ease;
+  }
+
+  .card::before, .card::after{
+    content:"❦";
+    position:absolute;
+    font-size:15px;
+    color:var(--gold);
+    opacity:.85;
+  }
+  .card::before{ top:14px; left:20px; transform:scaleX(-1); }
+  .card::after{ top:14px; right:20px; }
+
+  @keyframes cardIn{
+    from{ opacity:0; transform: translateY(18px) scale(.97); }
+    to{ opacity:1; transform: translateY(0) scale(1); }
+  }
+
+  .screen{ display:none; }
+  .screen.active{ display:block; }
+
+  h1,h2{
+    font-family:'Cormorant Garamond', serif;
+    color:var(--rose-dark);
+    margin:0 0 10px;
+    line-height:1.25;
+  }
+  h1{ font-size:29px; font-style:italic; font-weight:700; }
+  h2{ font-size:25px; font-weight:600; }
+
+  p{ font-size:14.5px; line-height:1.6; color:#6b3a4d; margin:0 0 18px; }
+
+  .eyebrow{
+    font-family:'Caveat', cursive;
+    font-size:23px;
+    color:var(--gold);
+    margin-bottom:2px;
+    display:block;
+  }
+
+  .avatar{
+    width:120px; height:120px; border-radius:50%;
+    object-fit:cover;
+    border:4px solid var(--blush);
+    box-shadow:0 10px 24px -8px rgba(90,15,38,.4);
+    margin:0 auto 18px;
+    display:block;
+  }
+
+  .placeholder-avatar{
+    width:120px; height:120px; border-radius:50%;
+    margin:0 auto 18px;
+    background: linear-gradient(135deg,var(--blush),#fff);
+    display:flex; align-items:center; justify-content:center;
+    font-size:44px; border:4px solid var(--blush);
+    box-shadow:0 10px 24px -8px rgba(90,15,38,.4);
+  }
+
+  .btn{
+    appearance:none; cursor:pointer;
+    font-family:'Poppins', sans-serif;
+    font-weight:600; font-size:15px; letter-spacing:.3px;
+    padding:14px 26px;
+    border-radius:999px;
+    background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+    border: 1.5px solid var(--gold);
+    color:#fdf3e0;
+    box-shadow: 0 10px 22px -8px rgba(90,15,38,.55);
+    transition: transform .15s ease, box-shadow .15s ease;
+    width:100%;
+    margin-top:6px;
+    position:relative;
+  }
+  .btn:hover{ transform: translateY(-2px); box-shadow: 0 14px 26px -8px rgba(90,15,38,.6); }
+  .btn:active{ transform: translateY(0); }
+
+  .btn.secondary{
+    background:#fff;
+    color:var(--rose-dark);
+    border:1.5px solid var(--gold);
+    box-shadow:none;
+  }
+
+  .btn.no{
+    position:relative;
+    background:#fff;
+    color:#a9899a;
+    border:1.5px solid #eee;
+    box-shadow:none;
+    width:auto;
+    padding:12px 22px;
+    font-size:14px;
+    margin-top:14px;
+  }
+
+  .yn-row{ display:flex; flex-direction:column; align-items:center; gap:4px; }
+
+  /* carousel */
+  .carousel{
+    min-height:150px;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .line{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:20px;
+    color:var(--rose-dark);
+    opacity:0;
+    transform: translateY(10px);
+    transition: opacity .5s ease, transform .5s ease;
+    padding:0 6px;
+  }
+  .line.show{ opacity:1; transform:translateY(0); }
+
+  .dots{ display:flex; justify-content:center; gap:6px; margin:14px 0 20px; }
+  .dot{ width:7px; height:7px; border-radius:50%; background:var(--blush); transition:.3s; }
+  .dot.active{ background:var(--rose); width:20px; border-radius:5px; }
+
+  label{
+    display:block; text-align:left; font-size:13px; font-weight:600;
+    color:var(--rose-dark); margin:14px 0 6px;
+  }
+  input[type="date"], input[type="time"], select{
+    width:100%; padding:12px 14px; border-radius:14px;
+    border:2px solid var(--blush); font-family:'Poppins',sans-serif;
+    font-size:14px; color:var(--plum); background:#fff;
+    outline:none;
+  }
+  input:focus, select:focus{ border-color:var(--rose); }
+
+  .vibe-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
+    margin: 16px 0 20px;
+  }
+  .vibe{
+    border:2px solid var(--blush); border-radius:16px; padding:14px 6px;
+    cursor:pointer; background:#fff; transition:.2s;
+  }
+  .vibe .emoji{ font-size:26px; display:block; margin-bottom:6px; }
+  .vibe span.label{ font-size:12px; font-weight:600; color:var(--rose-dark); }
+  .vibe.selected{ border-color:var(--rose); background:var(--blush); transform:translateY(-2px); }
+
+  .kiss-box{
+    border:2px dashed var(--blush); border-radius:18px; padding:20px 14px; margin-bottom:18px;
+  }
+  .kiss-price{ font-family:'Cormorant Garamond',serif; font-size:30px; color:var(--rose-dark); margin:6px 0; }
+
+  .countdown{
+    display:flex; justify-content:center; gap:10px; margin:18px 0 22px;
+  }
+  .cd-box{
+    background:var(--blush); border-radius:14px; padding:10px 8px; min-width:56px;
+  }
+  .cd-num{ font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--rose-dark); font-weight:700; }
+  .cd-label{ font-size:10px; text-transform:uppercase; letter-spacing:.5px; color:var(--rose-dark); }
+
+  .signature{
+    font-family:'Caveat', cursive; font-size:34px; color:var(--rose-dark);
+    margin-top:6px;
+  }
+
+  .hidden-heart{
+    position:fixed; bottom:18px; right:18px; z-index:5;
+    width:44px; height:44px; border-radius:50%;
+    background:#fff; border:2px solid var(--blush);
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; cursor:pointer;
+    box-shadow:0 8px 20px -6px rgba(90,15,38,.35);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.12); }
+  }
+
+  .overlay{
+    position:fixed; inset:0; background:rgba(63,23,48,.55);
+    display:none; align-items:center; justify-content:center; z-index:10; padding:20px;
+  }
+  .overlay.active{ display:flex; }
+  .note-card{
+    background:#fffaf5; border-radius:22px; padding:28px 24px; max-width:360px; text-align:center;
+    box-shadow:var(--card-shadow); position:relative;
+  }
+  .note-card p{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--rose-dark); }
+  .close-x{
+    position:absolute; top:12px; right:14px; cursor:pointer; font-size:18px; color:#a9899a;
+  }
+  .play-btn{
+    width:52px; height:52px; border-radius:50%; border:none; cursor:pointer;
+    background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+    color:#fff; font-size:18px; margin-top:8px;
+    box-shadow:0 10px 22px -8px rgba(90,15,38,.5);
+  }
+
+  .fine-print{ font-size:11px; color:#b98fa2; margin-top:10px; }
+
+  @media (max-width:430px){
+    .stage{ padding:16px; align-items:flex-start; padding-top:36px; }
+    .card{ padding:26px 18px 24px; max-width:100%; }
+    h1{ font-size:22px; }
+    h2{ font-size:19px; }
+    p{ font-size:13.5px; }
+    .avatar, .placeholder-avatar{ width:96px; height:96px; }
+    .placeholder-avatar{ font-size:34px; }
+    .line{ font-size:17px; padding:0 2px; }
+    .carousel{ min-height:130px; }
+    .vibe-grid{ gap:8px; }
+    .vibe{ padding:11px 4px; }
+    .vibe .emoji{ font-size:22px; }
+    .vibe span.label{ font-size:11px; }
+    .countdown{ gap:7px; }
+    .cd-box{ min-width:48px; padding:9px 5px; }
+    .cd-num{ font-size:19px; }
+    .cd-label{ font-size:9px; }
+    .hidden-heart{ bottom:14px; right:14px; width:40px; height:40px; font-size:16px; }
+    .note-card{ padding:24px 18px; max-width:92vw; }
+  }
+</style>
+</head>
+<body>
+
+<div class="petals" id="petals"></div>
+
+<!-- floating hidden heart button, appears from screen 6 onward -->
+<div class="hidden-heart" id="hiddenHeart" style="display:none;" onclick="openSurprise()">💌</div>
+
+<div class="stage">
+  <div class="card">
+
+    <!-- SCREEN 0: the ask -->
+    <div class="screen active" id="s0">
+      <span class="eyebrow">Bou jaan,</span>
+      <!-- Replace src below with a real photo of the two of you, e.g. "us.jpg" placed in the same folder -->
+      <img src="us.jpg" class="avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" alt="us">
+      <div class="placeholder-avatar" style="display:none;">💞</div>
+      <h1>Will you go on a date with me, Moina?</h1>
+      <div class="yn-row">
+        <button class="btn" onclick="goTo('s1')">YES ♥</button>
+        <button class="btn no" id="noBtn" onmouseover="dodge()" ontouchstart="dodge()" onclick="dodge()">no 🥺</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 1: reaction -->
+    <div class="screen" id="s1">
+      <div class="placeholder-avatar" style="font-size:40px;">😭</div>
+      <h2>WAIT YOU ACTUALLY SAID YES??</h2>
+      <p>I was so ready for you to say no 😅 but I'm way happier this way.</p>
+      <button class="btn" onclick="goTo('s2'); startCarousel();">okay okay! →</button>
+    </div>
+
+    <!-- SCREEN 2: why I like you carousel -->
+    <div class="screen" id="s2">
+      <span class="eyebrow">a few reasons, Moina</span>
+      <h2>why I like you</h2>
+      <div class="carousel" id="carousel"></div>
+      <div class="dots" id="dots"></div>
+      <button class="btn" id="carouselContinue" style="display:none; opacity:0; transition:opacity .5s ease;" onclick="goTo('s3')">continue →</button>
+    </div>
+
+    <!-- SCREEN 3: pick day/time -->
+    <div class="screen" id="s3">
+      <span class="eyebrow">🐾 dd/mm</span>
+      <h2>So... when are you free?</h2>
+      <label>Pick a Day</label>
+      <input type="date" id="dateInput">
+      <label>What Time?</label>
+      <input type="time" id="timeInput">
+      <button class="btn" style="margin-top:20px;" onclick="setDate()">set the date ♥</button>
+    </div>
+
+    <!-- SCREEN 4: food vibe -->
+    <div class="screen" id="s4">
+      <h2>ki khabo amra? 🍽️✨</h2>
+      <p>pick your vibe</p>
+      <div class="vibe-grid" id="vibeGrid">
+        <div class="vibe" data-v="Pizza"><span class="emoji">🍕</span><span class="label">Pizza</span></div>
+        <div class="vibe" data-v="Biriyani"><span class="emoji">🍛</span><span class="label">Biriyani</span></div>
+        <div class="vibe" data-v="Burgers"><span class="emoji">🍔</span><span class="label">Burgers</span></div>
+        <div class="vibe" data-v="Pasta"><span class="emoji">🍝</span><span class="label">Pasta</span></div>
+        <div class="vibe" data-v="Tacos"><span class="emoji">🌮</span><span class="label">Tacos</span></div>
+        <div class="vibe" data-v="Cold Coffee"><span class="emoji">🥤</span><span class="label">Cold Coffee</span></div>
+      </div>
+      <button class="btn" onclick="goTo('s5')">lock it in →</button>
+    </div>
+
+    <!-- SCREEN 5: glad message -->
+    <div class="screen" id="s5">
+      <h2>glad you didn't say no.</h2>
+      <p id="prepMsg">be ready, I'm coming to get you 🚗</p>
+      <p class="fine-print">P.S. east or west, my wife is the best.</p>
+      <div style="font-size:18px; margin:6px 0 16px;">♥ ♥ ♥ ♥ ♥</div>
+      <button class="btn" onclick="goTo('s6')">ok I accept 💝</button>
+    </div>
+
+    <!-- SCREEN 6: pay with a kiss -->
+    <div class="screen" id="s6">
+      <div class="placeholder-avatar" style="font-size:36px;">💋</div>
+      <h2>one small fee</h2>
+      <p>to confirm your acceptance of this date, please complete the following transaction. totally normal. everyone does this.</p>
+      <div class="kiss-box">
+        <div style="font-size:12px; font-weight:600; color:var(--rose-dark);">Date Agreement™</div>
+        <div class="kiss-price">1 kiss 💋</div>
+        <div class="fine-print">one-time fee • non-refundable • absolutely worth it</div>
+      </div>
+      <button class="btn" onclick="goTo('s7'); startCountdown(); revealHeart();">pay with a kiss 💋</button>
+    </div>
+
+    <!-- SCREEN 7: countdown -->
+    <div class="screen" id="s7">
+      <span class="eyebrow">it's official</span>
+      <h2>counting down to us</h2>
+      <div class="countdown" id="countdown">
+        <div class="cd-box"><div class="cd-num" id="cdDays">--</div><div class="cd-label">days</div></div>
+        <div class="cd-box"><div class="cd-num" id="cdHours">--</div><div class="cd-label">hrs</div></div>
+        <div class="cd-box"><div class="cd-num" id="cdMins">--</div><div class="cd-label">min</div></div>
+        <div class="cd-box"><div class="cd-num" id="cdSecs">--</div><div class="cd-label">sec</div></div>
+      </div>
+      <p id="planSummary">See you soon, Moina 🥹</p>
+      <div class="signature">— always yours</div>
+      <p class="fine-print">psst... there's a little heart floating bottom-right 👀</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- hidden surprise overlay -->
+<div class="overlay" id="overlay">
+  <div class="note-card">
+    <span class="close-x" onclick="closeSurprise()">✕</span>
+    <h2 style="margin-top:6px;">a little something, Bou jaan</h2>
+    <p>Every song sounds better when I imagine you humming along. This one made me think of you.</p>
+
+    <!--
+      HOW TO ADD YOUR SONG:
+      1. Download the song file (e.g. an MP3 you already own) and name it "song.mp3"
+      2. Place "song.mp3" in the same folder as this index.html file
+      3. That's it — the play button below will work automatically
+      Suggested: A.R. Rahman - "Hosanna" (Ekk Deewana Tha)
+    -->
+    <audio id="loveSong" src="song.mp3"></audio>
+    <button class="play-btn" id="playBtn" onclick="toggleSong()">▶</button>
+    <div class="fine-print">Hosanna – A.R. Rahman</div>
+  </div>
+</div>
+
+<script>
+  // ---------- floating petals ----------
+  const petalEmojis = ['✦','❀','🪔','✧'];
+  const petalsEl = document.getElementById('petals');
+  for(let i=0;i<18;i++){
+    const p = document.createElement('div');
+    p.className='petal';
+    p.textContent = petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
+    p.style.left = Math.random()*100+'vw';
+    p.style.fontSize = (14+Math.random()*14)+'px';
+    p.style.animationDuration = (8+Math.random()*10)+'s';
+    p.style.animationDelay = (Math.random()*10)+'s';
+    p.style.opacity = 0.35+Math.random()*0.5;
+    petalsEl.appendChild(p);
+  }
+
+  // ---------- screen navigation ----------
+  function goTo(id){
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  // ---------- dodging "no" button ----------
+  function dodge(){
+    const btn = document.getElementById('noBtn');
+    const maxX = 90, maxY = 40;
+    const x = (Math.random()-0.5)*2*maxX;
+    const y = (Math.random()-0.5)*2*maxY;
+    btn.style.position='relative';
+    btn.style.left = x+'px';
+    btn.style.top = y+'px';
+  }
+
+  // ---------- carousel ----------
+  const lines = [
+    "you love me",
+    "you care for me",
+    "you know whatever I need more than myself",
+    "you unblock me every time I request 😅",
+    "you are loyal and honest",
+    "you are the best"
+  ];
+  let carouselIndex = 0;
+  let carouselTimer = null;
+
+  function buildCarousel(){
+    const carousel = document.getElementById('carousel');
+    const dots = document.getElementById('dots');
+    carousel.innerHTML='';
+    dots.innerHTML='';
+    lines.forEach((line,i)=>{
+      const div = document.createElement('div');
+      div.className='line';
+      div.textContent = line;
+      div.id = 'line'+i;
+      carousel.appendChild(div);
+
+      const dot = document.createElement('div');
+      dot.className='dot';
+      dot.id='dot'+i;
+      dots.appendChild(dot);
+    });
+  }
+  buildCarousel();
+
+  function showLine(i){
+    document.querySelectorAll('.line').forEach(l=>l.classList.remove('show'));
+    document.querySelectorAll('.dot').forEach(d=>d.classList.remove('active'));
+    document.getElementById('line'+i).classList.add('show');
+    document.getElementById('dot'+i).classList.add('active');
+  }
+
+  function startCarousel(){
+    carouselIndex = 0;
+    showLine(0);
+
+    const contBtn = document.getElementById('carouselContinue');
+    contBtn.style.display = 'none';
+    contBtn.style.opacity = 0;
+
+    if(carouselTimer) clearInterval(carouselTimer);
+    carouselTimer = setInterval(()=>{
+      carouselIndex++;
+      if(carouselIndex >= lines.length){
+        // full cycle done — let her see one more time through, then reveal continue
+        clearInterval(carouselTimer);
+        contBtn.style.display = 'block';
+        requestAnimationFrame(()=>{ contBtn.style.opacity = 1; });
+        return;
+      }
+      showLine(carouselIndex);
+    }, 2200);
+  }
+
+  // ---------- restrict date picker to today or later ----------
+  (function setMinDate(){
+    const dateInput = document.getElementById('dateInput');
+    const now = new Date();
+    const yyyy = now.getFullYear();
+    const mm = String(now.getMonth()+1).padStart(2,'0');
+    const dd = String(now.getDate()).padStart(2,'0');
+    dateInput.min = `${yyyy}-${mm}-${dd}`;
+  })();
+
+  // ---------- date/time ----------
+  let targetDate = null;
+
+  function setDate(){
+    const d = document.getElementById('dateInput').value;
+    const t = document.getElementById('timeInput').value || '18:00';
+    if(!d){ alert('Pick a day first, Moina 🥺'); return; }
+    const chosen = new Date(d+'T'+t);
+    const now = new Date();
+    if(chosen < now){
+      alert('That day already passed, Moina 😅 pick a day from today onward.');
+      return;
+    }
+    targetDate = chosen;
+    goTo('s4');
+  }
+
+  // ---------- vibe selection ----------
+  let chosenVibe = null;
+  document.querySelectorAll('.vibe').forEach(v=>{
+    v.addEventListener('click', ()=>{
+      document.querySelectorAll('.vibe').forEach(x=>x.classList.remove('selected'));
+      v.classList.add('selected');
+      chosenVibe = v.dataset.v;
+      document.getElementById('prepMsg').textContent =
+        targetDate
+          ? `be ready by ${formatTime(targetDate)}, we're getting ${chosenVibe.toLowerCase()} 🚗`
+          : `be ready, we're getting ${chosenVibe.toLowerCase()} 🚗`;
+    });
+  });
+
+  function formatTime(dt){
+    return dt.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  }
+
+  // ---------- countdown ----------
+  let countdownTimer = null;
+  function startCountdown(){
+    if(!targetDate){ targetDate = new Date(Date.now()+1000*60*60*24); }
+    document.getElementById('planSummary').textContent =
+      chosenVibe
+        ? `${targetDate.toLocaleDateString([], {weekday:'long', month:'long', day:'numeric'})} · ${formatTime(targetDate)} · ${chosenVibe} 🍽️`
+        : `${targetDate.toLocaleDateString([], {weekday:'long', month:'long', day:'numeric'})} · ${formatTime(targetDate)}`;
+
+    if(countdownTimer) clearInterval(countdownTimer);
+    function tick(){
+      const now = new Date();
+      let diff = targetDate - now;
+      if(diff < 0) diff = 0;
+      const days = Math.floor(diff/(1000*60*60*24));
+      const hours = Math.floor((diff/(1000*60*60))%24);
+      const mins = Math.floor((diff/(1000*60))%60);
+      const secs = Math.floor((diff/1000)%60);
+      document.getElementById('cdDays').textContent = days;
+      document.getElementById('cdHours').textContent = String(hours).padStart(2,'0');
+      document.getElementById('cdMins').textContent = String(mins).padStart(2,'0');
+      document.getElementById('cdSecs').textContent = String(secs).padStart(2,'0');
+    }
+    tick();
+    countdownTimer = setInterval(tick, 1000);
+  }
+
+  // ---------- hidden surprise ----------
+  function revealHeart(){
+    document.getElementById('hiddenHeart').style.display='flex';
+  }
+  function openSurprise(){
+    document.getElementById('overlay').classList.add('active');
+  }
+  function closeSurprise(){
+    document.getElementById('overlay').classList.remove('active');
+    const audio = document.getElementById('loveSong');
+    audio.pause();
+    document.getElementById('playBtn').textContent='▶';
+  }
+  function toggleSong(){
+    const audio = document.getElementById('loveSong');
+    const btn = document.getElementById('playBtn');
+    if(audio.paused){
+      audio.play().catch(()=>{ alert('Add "song.mp3" next to this file so the music can play 🎵'); });
+      btn.textContent='❚❚';
+    } else {
+      audio.pause();
+      btn.textContent='▶';
+    }
+  }
+</script>
+
+</body>
+</html>
